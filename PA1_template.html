@@ -89,6 +89,11 @@ steps$interval &lt;- factor(steps$interval)</code></pre>
 </div>
 <div id="what-is-mean-total-number-of-steps-taken-per-day" class="section level2">
 <h2>What is mean total number of steps taken per day?</h2>
+<div id="summarize-by-day" class="section level3">
+<h3>Summarize by day</h3>
+<pre class="r"><code>library(dplyr, quietly = TRUE, warn.conflicts = FALSE)
+daily &lt;- steps %&gt;% group_by(date) %&gt;% summarize(sum(steps), na.rm = TRUE)</code></pre>
+</div>
 </div>
 <div id="what-is-the-average-daily-activity-pattern" class="section level2">
 <h2>What is the average daily activity pattern?</h2>

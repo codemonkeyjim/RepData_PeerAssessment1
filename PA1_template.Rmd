@@ -34,6 +34,12 @@ steps$interval <- factor(steps$interval)
 
 ## What is mean total number of steps taken per day?
 
+### Summarize by day
+
+```{r}
+library(dplyr, quietly = TRUE, warn.conflicts = FALSE)
+daily <- steps %>% group_by(date) %>% summarize(sum(steps), na.rm = TRUE)
+```
 
 
 ## What is the average daily activity pattern?
