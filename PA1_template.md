@@ -54,6 +54,25 @@ g
 
 ![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
 
+### Summary statistics
+
+
+```r
+  mean(steps.daily$steps, na.rm = TRUE)
+```
+
+```
+## [1] 10766.19
+```
+
+```r
+  median(steps.daily$steps, na.rm = TRUE)
+```
+
+```
+## [1] 10765
+```
+
 ## What is the average daily activity pattern?
 
 

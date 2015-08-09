@@ -53,6 +53,13 @@ g <- g + labs(title = 'Count of Daily Steps Totals',
 g
 ```
 
+### Summary statistics
+
+```{r}
+mean(steps.daily$steps, na.rm = TRUE)
+median(steps.daily$steps, na.rm = TRUE)
+```
+
 ## What is the average daily activity pattern?
 
 
