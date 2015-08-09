@@ -92,7 +92,7 @@ steps.raw$interval &lt;- factor(steps.raw$interval)</code></pre>
 <div id="summarize-by-day" class="section level3">
 <h3>Summarize by day</h3>
 <pre class="r"><code>library(dplyr, quietly = TRUE, warn.conflicts = FALSE)
-steps.daily &lt;- steps.raw %&gt;% group_by(date) %&gt;% summarize(steps = sum(steps), na.rm = TRUE)</code></pre>
+steps.daily &lt;- steps.raw %&gt;% group_by(date) %&gt;% summarize(steps = sum(steps))</code></pre>
 </div>
 <div id="histogram" class="section level3">
 <h3>Histogram</h3>
@@ -107,9 +107,9 @@ g</code></pre>
 </div>
 <div id="summary-statistics" class="section level3">
 <h3>Summary statistics</h3>
-<pre class="r"><code>  mean(steps.daily$steps, na.rm = TRUE)</code></pre>
+<pre class="r"><code>mean(steps.daily$steps, na.rm = TRUE)</code></pre>
 <pre><code>## [1] 10766.19</code></pre>
-<pre class="r"><code>  median(steps.daily$steps, na.rm = TRUE)</code></pre>
+<pre class="r"><code>median(steps.daily$steps, na.rm = TRUE)</code></pre>
 <pre><code>## [1] 10765</code></pre>
 </div>
 </div>

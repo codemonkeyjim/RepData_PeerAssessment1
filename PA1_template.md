@@ -36,7 +36,7 @@ steps.raw$interval <- factor(steps.raw$interval)
 
 ```r
 library(dplyr, quietly = TRUE, warn.conflicts = FALSE)
-steps.daily <- steps.raw %>% group_by(date) %>% summarize(steps = sum(steps), na.rm = TRUE)
+steps.daily <- steps.raw %>% group_by(date) %>% summarize(steps = sum(steps))
 ```
 
 ### Histogram
@@ -58,7 +58,7 @@ g
 
 
 ```r
-  mean(steps.daily$steps, na.rm = TRUE)
+mean(steps.daily$steps, na.rm = TRUE)
 ```
 
 ```
@@ -66,7 +66,7 @@ g
 ```
 
 ```r
-  median(steps.daily$steps, na.rm = TRUE)
+median(steps.daily$steps, na.rm = TRUE)
 ```
 
 ```
@@ -74,7 +74,6 @@ g
 ```
 
 ## What is the average daily activity pattern?
-
 
 
 ## Imputing missing values
