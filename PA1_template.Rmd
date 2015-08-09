@@ -22,11 +22,13 @@ if (!file.exists(datafile)) {
 }
 ```
 
-### Load and process data file
+### Tidy data
 
 ```{r}
+library(lubridate)
 steps <- read.csv(datafile)
-
+steps$date <- ymd(steps$date)
+steps$interval <- factor(steps$interval)
 ```
 
 

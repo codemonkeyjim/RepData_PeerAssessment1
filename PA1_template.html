@@ -68,6 +68,24 @@ img {
 
 <div id="loading-and-preprocessing-the-data" class="section level2">
 <h2>Loading and preprocessing the data</h2>
+<div id="retrieve-and-unzip-data-file" class="section level3">
+<h3>Retrieve and unzip data file</h3>
+<pre class="r"><code>datafile &lt;- 'activity.csv'
+if (!file.exists(datafile)) {
+  zip &lt;- 'activity.zip'
+  if (!file.exists(zip)) {
+    download.file('https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip', zip, method = 'libcurl')
+  }
+  unzip(zip)
+}</code></pre>
+</div>
+<div id="tidy-data" class="section level3">
+<h3>Tidy data</h3>
+<pre class="r"><code>library(lubridate)
+steps &lt;- read.csv(datafile)
+steps$date &lt;- ymd(steps$date)
+steps$interval &lt;- factor(steps$interval)</code></pre>
+</div>
 </div>
 <div id="what-is-mean-total-number-of-steps-taken-per-day" class="section level2">
 <h2>What is mean total number of steps taken per day?</h2>
