@@ -45,12 +45,11 @@ steps.daily <- steps.raw %>% group_by(date) %>% summarize(steps = sum(steps), na
 ```r
 library(ggplot2)
 g <- ggplot(steps.daily, aes(x = steps))
-g <- g + geom_histogram()
+g <- g + geom_histogram(binwidth=500, color = 'black', fill = 'gray')
+g <- g + labs(title = 'Count of Daily Steps Totals',
+              x = 'Total Daily Steps',
+              y = '')
 g
-```
-
-```
-## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 

@@ -24,7 +24,7 @@ if (!file.exists(datafile)) {
 
 ### Tidy data
 
-```{r}
+```{r, cache=TRUE}
 library(lubridate)
 steps.raw <- read.csv(datafile)
 steps.raw$date <- ymd(steps.raw$date)
@@ -43,10 +43,13 @@ steps.daily <- steps.raw %>% group_by(date) %>% summarize(steps = sum(steps), na
 
 ### Histogram
 
-```{r}
+```{r fig.height=7,fig.width=14}
 library(ggplot2)
 g <- ggplot(steps.daily, aes(x = steps))
-g <- g + geom_histogram()
+g <- g + geom_histogram(binwidth=500, color = 'black', fill = 'gray')
+g <- g + labs(title = 'Count of Daily Steps Totals',
+              x = 'Total Daily Steps',
+              y = '')
 g
 ```
 
