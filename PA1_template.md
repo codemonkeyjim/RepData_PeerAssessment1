@@ -39,7 +39,7 @@ library(dplyr, quietly = TRUE, warn.conflicts = FALSE)
 steps.daily <- steps.raw %>% group_by(date) %>% summarize(steps = sum(steps))
 ```
 
-### Histogram
+### Histogram of daily steps
 
 
 ```r
@@ -54,7 +54,7 @@ g
 
 ![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
 
-### Summary statistics
+### Summary statistics for daily steps
 
 
 ```r
@@ -75,6 +75,28 @@ median(steps.daily$steps, na.rm = TRUE)
 
 ## What is the average daily activity pattern?
 
+### Summarize by interval
+
+
+```r
+library(dplyr, quietly = TRUE, warn.conflicts = FALSE)
+steps.interval <- steps.raw %>% group_by(interval) %>% summarize(steps = mean(steps, na.rm = TRUE))
+```
+
+### Line chart of steps by interval
+
+
+```r
+library(ggplot2)
+g <- ggplot(steps.interval, aes(x = interval, y = steps, group = NA))
+g <- g + geom_line()
+g <- g + labs(title = 'Average Steps by Interval',
+              x = 'Interval',
+              y = 'Average Steps')
+g
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-7-1.png) 
 
 ## Imputing missing values
 
