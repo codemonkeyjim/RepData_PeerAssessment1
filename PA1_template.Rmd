@@ -92,4 +92,30 @@ steps.imputed[is.na(steps.imputed$steps.x),]$steps.x <- steps.imputed[is.na(step
 steps.imputed <- select(steps.imputed, interval = interval, steps = steps.x, date = date)
 ```
 
+### Summarize by day (including imputed)
+
+```{r}
+library(dplyr, quietly = TRUE, warn.conflicts = FALSE)
+steps.daily.imputed <- steps.imputed %>% group_by(date) %>% summarize(steps = sum(steps))
+```
+
+### Histogram of daily steps (including imputed)
+
+```{r fig.height=7,fig.width=14}
+library(ggplot2)
+g <- ggplot(steps.daily.imputed, aes(x = steps))
+g <- g + geom_histogram(binwidth=500, color = 'black', fill = 'gray')
+g <- g + labs(title = 'Count of Daily Steps Totals',
+              x = 'Total Daily Steps',
+              y = '')
+g
+```
+
+### Summary statistics for daily steps (including imputed)
+
+```{r}
+mean(steps.daily.imputed$steps)
+median(steps.daily.imputed$steps)
+```
+
 ## Are there differences in activity patterns between weekdays and weekends?
