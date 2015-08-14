@@ -83,6 +83,13 @@ g
 
 ## Imputing missing values
 
+Create a new dataset of raw steps but replace any NA values for steps with the mean for that interval.
 
+```{r}
+library(dplyr, quietly = TRUE, warn.conflicts = FALSE)
+steps.imputed <- merge(steps.raw, steps.interval, by = c('interval'))
+steps.imputed[is.na(steps.imputed$steps.x),]$steps.x <- steps.imputed[is.na(steps.imputed$steps.x),]$steps.y
+steps.imputed <- select(steps.imputed, interval = interval, steps = steps.x, date = date)
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?

@@ -134,6 +134,11 @@ g</code></pre>
 </div>
 <div id="imputing-missing-values" class="section level2">
 <h2>Imputing missing values</h2>
+<p>Create a new dataset of raw steps but replace any NA values for steps with the mean for that interval.</p>
+<pre class="r"><code>library(dplyr, quietly = TRUE, warn.conflicts = FALSE)
+steps.imputed &lt;- merge(steps.raw, steps.interval, by = c('interval'))
+steps.imputed[is.na(steps.imputed$steps.x),]$steps.x &lt;- steps.imputed[is.na(steps.imputed$steps.x),]$steps.y
+steps.imputed &lt;- select(steps.imputed, interval = interval, steps = steps.x, date = date)</code></pre>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
