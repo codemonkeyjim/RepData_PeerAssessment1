@@ -135,19 +135,20 @@ g
 
 
 ```r
-mean(steps.daily.imputed$steps)
+daily.mean.imputed <- mean(steps.daily.imputed$steps)
+daily.median.imputed <- median(steps.daily.imputed$steps)
+summary <- rbind(c(daily.mean, daily.median), c(daily.mean.imputed, daily.median.imputed))
+rownames(summary) <- c('Daily (raw)', 'Daily (imputed)')
+colnames(summary) <- c('Mean', 'Median')
+summary
 ```
 
 ```
-## [1] 10766.19
+##                     Mean   Median
+## Daily (raw)     10766.19 10765.00
+## Daily (imputed) 10766.19 10766.19
 ```
 
-```r
-median(steps.daily.imputed$steps)
-```
-
-```
-## [1] 10766.19
-```
+The daily mean is unchanged because the NAs were replaced with the interval means. However, the median is slightly larger.
 
 ## Are there differences in activity patterns between weekdays and weekends?

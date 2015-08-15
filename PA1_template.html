@@ -161,10 +161,16 @@ g</code></pre>
 </div>
 <div id="summary-statistics-for-daily-steps-including-imputed" class="section level3">
 <h3>Summary statistics for daily steps (including imputed)</h3>
-<pre class="r"><code>mean(steps.daily.imputed$steps)</code></pre>
-<pre><code>## [1] 10766.19</code></pre>
-<pre class="r"><code>median(steps.daily.imputed$steps)</code></pre>
-<pre><code>## [1] 10766.19</code></pre>
+<pre class="r"><code>daily.mean.imputed &lt;- mean(steps.daily.imputed$steps)
+daily.median.imputed &lt;- median(steps.daily.imputed$steps)
+summary &lt;- rbind(c(daily.mean, daily.median), c(daily.mean.imputed, daily.median.imputed))
+rownames(summary) &lt;- c('Daily (raw)', 'Daily (imputed)')
+colnames(summary) &lt;- c('Mean', 'Median')
+summary</code></pre>
+<pre><code>##                     Mean   Median
+## Daily (raw)     10766.19 10765.00
+## Daily (imputed) 10766.19 10766.19</code></pre>
+<p>The daily mean is unchanged because the NAs were replaced with the interval means. However, the median is slightly larger.</p>
 </div>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
