@@ -1,6 +1,18 @@
 # Reproducible Research: Peer Assessment 1
 Jim Pfleger  
 
+This report analyzes data from a personal activity monitoring device, which collected the number of steps taken at 5 minute intervals through out the day. The data consists of two months of data from an anonymous individual collected during the months of October and November 2012.
+
+The data set can be downloaded from https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip and contains these variables:
+
+* **steps**: Number of steps taking in a 5-minute interval (missing values are coded as NA)
+
+* **date**: The date on which the measurement was taken in YYYY-MM-DD format
+
+* **interval**: Identifier for the 5-minute interval in which measurement was taken
+
+The dataset consists of 17,568 observations in a comma-separated-value (CSV) file.
+
 ## Loading and preprocessing the data
 
 ### Retrieve and unzip data file
@@ -36,7 +48,7 @@ steps.raw$interval <- factor(steps.raw$interval)
 
 ### Summarize by day
 
-Sum the steps taken per day into a new data frome.
+Sum the steps taken per day into a new data frame, ignoring any missing values.
 
 
 ```r
@@ -84,7 +96,7 @@ summary
 
 ### Summarize by interval
 
-Create a different data frame that sums the steps per interval without regard to day. This can be used to look for patterns based on the time of day.
+Create a different data frame that sums the steps per interval without regard to day. This can be used to look for patterns based on the time of day. Note that this still ignores missing values.
 
 
 ```r
@@ -111,7 +123,7 @@ g
 
 ## Impute missing values
 
-Create a new data frame of raw steps but replace any NA values for steps with the mean for that interval.
+Create a new data frame of raw steps but replace any missing step values with the mean for that interval.
 
 
 ```r

@@ -66,6 +66,14 @@ img {
 </div>
 
 
+<p>This report analyzes data from a personal activity monitoring device, which collected the number of steps taken at 5 minute intervals through out the day. The data consists of two months of data from an anonymous individual collected during the months of October and November 2012.</p>
+<p>The data set can be downloaded from <a href="https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip">https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip</a> and contains these variables:</p>
+<ul>
+<li><p><strong>steps</strong>: Number of steps taking in a 5-minute interval (missing values are coded as NA)</p></li>
+<li><p><strong>date</strong>: The date on which the measurement was taken in YYYY-MM-DD format</p></li>
+<li><p><strong>interval</strong>: Identifier for the 5-minute interval in which measurement was taken</p></li>
+</ul>
+<p>The dataset consists of 17,568 observations in a comma-separated-value (CSV) file.</p>
 <div id="loading-and-preprocessing-the-data" class="section level2">
 <h2>Loading and preprocessing the data</h2>
 <div id="retrieve-and-unzip-data-file" class="section level3">
@@ -93,7 +101,7 @@ steps.raw$interval &lt;- factor(steps.raw$interval)</code></pre>
 <h2>What is mean total number of steps taken per day?</h2>
 <div id="summarize-by-day" class="section level3">
 <h3>Summarize by day</h3>
-<p>Sum the steps taken per day into a new data frome.</p>
+<p>Sum the steps taken per day into a new data frame, ignoring any missing values.</p>
 <pre class="r"><code>library(dplyr, quietly = TRUE, warn.conflicts = FALSE)
 steps.daily &lt;- steps.raw %&gt;% group_by(date) %&gt;% summarize(steps = sum(steps))</code></pre>
 </div>
@@ -126,7 +134,7 @@ summary</code></pre>
 <h2>What is the average daily activity pattern?</h2>
 <div id="summarize-by-interval" class="section level3">
 <h3>Summarize by interval</h3>
-<p>Create a different data frame that sums the steps per interval without regard to day. This can be used to look for patterns based on the time of day.</p>
+<p>Create a different data frame that sums the steps per interval without regard to day. This can be used to look for patterns based on the time of day. Note that this still ignores missing values.</p>
 <pre class="r"><code>library(dplyr, quietly = TRUE, warn.conflicts = FALSE)
 steps.interval &lt;- steps.raw %&gt;% group_by(interval) %&gt;% summarize(steps = mean(steps, na.rm = TRUE))</code></pre>
 </div>
@@ -145,7 +153,7 @@ g</code></pre>
 </div>
 <div id="impute-missing-values" class="section level2">
 <h2>Impute missing values</h2>
-<p>Create a new data frame of raw steps but replace any NA values for steps with the mean for that interval.</p>
+<p>Create a new data frame of raw steps but replace any missing step values with the mean for that interval.</p>
 <pre class="r"><code>library(dplyr, quietly = TRUE, warn.conflicts = FALSE)
 steps.imputed &lt;- merge(steps.raw, steps.interval, by = c('interval'))
 NAs &lt;- is.na(steps.imputed$steps.x)
