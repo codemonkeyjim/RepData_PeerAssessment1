@@ -43,7 +43,6 @@ steps.raw$date <- ymd(steps.raw$date)
 steps.raw$interval <- factor(steps.raw$interval)
 ```
 
-
 ## What is mean total number of steps taken per day?
 
 ### Summarize by day
