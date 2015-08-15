@@ -1,10 +1,11 @@
 # Reproducible Research: Peer Assessment 1
 Jim Pfleger  
 
-
 ## Loading and preprocessing the data
 
 ### Retrieve and unzip data file
+
+If the data file is not already unzipped, unzip it. If there is no file to unzip, retrieve it from the original URL.
 
 
 ```r
@@ -20,6 +21,8 @@ if (!file.exists(datafile)) {
 
 ### Tidy data
 
+Read the CSV file and clean up the data types.
+
 
 ```r
 library(lubridate)
@@ -33,6 +36,8 @@ steps.raw$interval <- factor(steps.raw$interval)
 
 ### Summarize by day
 
+Sum the steps taken per day into a new data frome.
+
 
 ```r
 library(dplyr, quietly = TRUE, warn.conflicts = FALSE)
@@ -40,6 +45,8 @@ steps.daily <- steps.raw %>% group_by(date) %>% summarize(steps = sum(steps))
 ```
 
 ### Histogram of daily steps
+
+Plot a histogram of the new summary data frame.
 
 
 ```r
@@ -55,6 +62,8 @@ g
 ![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
 
 ### Summary statistics for daily steps
+
+Produce summary statistics for the daily steps data frame.
 
 
 ```r
@@ -75,6 +84,8 @@ summary
 
 ### Summarize by interval
 
+Create a different data frame that sums the steps per interval without regard to day. This can be used to look for patterns based on the time of day.
+
 
 ```r
 library(dplyr, quietly = TRUE, warn.conflicts = FALSE)
@@ -82,6 +93,8 @@ steps.interval <- steps.raw %>% group_by(interval) %>% summarize(steps = mean(st
 ```
 
 ### Line chart of steps by interval
+
+Create a line chart of the new summary data frame.
 
 
 ```r
@@ -98,17 +111,20 @@ g
 
 ## Impute missing values
 
-Create a new dataset of raw steps but replace any NA values for steps with the mean for that interval.
+Create a new data frame of raw steps but replace any NA values for steps with the mean for that interval.
 
 
 ```r
 library(dplyr, quietly = TRUE, warn.conflicts = FALSE)
 steps.imputed <- merge(steps.raw, steps.interval, by = c('interval'))
-steps.imputed[is.na(steps.imputed$steps.x),]$steps.x <- steps.imputed[is.na(steps.imputed$steps.x),]$steps.y
+NAs <- is.na(steps.imputed$steps.x)
+steps.imputed[NAs,]$steps.x <- steps.imputed[NAs,]$steps.y
 steps.imputed <- select(steps.imputed, interval = interval, steps = steps.x, date = date)
 ```
 
 ### Summarize by day (including imputed)
+
+Sum the steps taken per day into a new data frame, but include the imputed data.
 
 
 ```r
@@ -117,6 +133,8 @@ steps.daily.imputed <- steps.imputed %>% group_by(date) %>% summarize(steps = su
 ```
 
 ### Histogram of daily steps (including imputed)
+
+Plot a histogram of the new imputed summary data frame.
 
 
 ```r
@@ -132,6 +150,8 @@ g
 ![](PA1_template_files/figure-html/unnamed-chunk-10-1.png) 
 
 ### Summary statistics for daily steps (including imputed)
+
+Produce summary statistics for the imputed daily steps data frame and compare them to the non-imputed summary statistics.
 
 
 ```r
@@ -155,16 +175,18 @@ The daily mean is unchanged because the NAs were replaced with the interval mean
 
 ### Determine weekdays and weekends
 
+Use a modulo trick to quickly determine whether the date is a weekday. `wday()` returns 1 for Sunday and 7 for Saturday. Subtracting one changes these to 0 and 6 respectively. Now when dividing by 6 the remainder will be 0 for Sunday and Saturday and non-zero for all other days.
+
 
 ```r
 library(lubridate)
-# Is weekend?
-# wday() returns 1 for Sunday and 7 for Saturday. Change to 0 and 6 and modulo by 6.
 steps.imputed$daytype <- (wday(steps.imputed$date) - 1) %% 6 == 0 
 steps.imputed$daytype <- factor(steps.imputed$daytype, labels = c('weekday', 'weekend'))
 ```
 
 ### Summarize by interval per daytype (including imputed)
+
+Produce a new summary data frame of the mean steps per interval, with regard to daytype.
 
 
 ```r
@@ -173,6 +195,8 @@ steps.daytype.imputed <- steps.imputed %>% group_by(daytype, interval) %>% summa
 ```
 
 ### Line chart of steps per interval by daytype (including imputed)
+
+Plot a pair of line charts showing the mean steps per interval for weekdays and weekends.
 
 
 ```r
@@ -187,3 +211,5 @@ g
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-14-1.png) 
+
+**Note:** Although it seems redundant, each R chunk includes statements to load its libraries so the chunk can be run on its own in R Studio.
