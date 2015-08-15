@@ -152,3 +152,14 @@ summary
 The daily mean is unchanged because the NAs were replaced with the interval means. However, the median is slightly larger.
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
+### Determine weekdays and weekends
+
+
+```r
+library(lubridate)
+# Is weekend?
+steps.imputed$daytype <- (wday(steps.imputed$date) - 1) %% 6 == 0 
+steps.imputed$daytype <- factor(steps.imputed$daytype, labels = c('weekday', 'weekend'))
+```
+

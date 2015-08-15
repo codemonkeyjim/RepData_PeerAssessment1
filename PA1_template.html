@@ -175,6 +175,13 @@ summary</code></pre>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
+<div id="determine-weekdays-and-weekends" class="section level3">
+<h3>Determine weekdays and weekends</h3>
+<pre class="r"><code>library(lubridate)
+# Is weekend?
+steps.imputed$daytype &lt;- (wday(steps.imputed$date) - 1) %% 6 == 0 
+steps.imputed$daytype &lt;- factor(steps.imputed$daytype, labels = c('weekday', 'weekend'))</code></pre>
+</div>
 </div>
 
 
