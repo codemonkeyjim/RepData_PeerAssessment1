@@ -58,19 +58,17 @@ g
 
 
 ```r
-mean(steps.daily$steps, na.rm = TRUE)
+daily.mean <- mean(steps.daily$steps, na.rm = TRUE)
+daily.median <- median(steps.daily$steps, na.rm = TRUE)
+summary <- rbind(c(daily.mean, daily.median))
+rownames(summary) <- c('Daily')
+colnames(summary) <- c('Mean', 'Median')
+summary
 ```
 
 ```
-## [1] 10766.19
-```
-
-```r
-median(steps.daily$steps, na.rm = TRUE)
-```
-
-```
-## [1] 10765
+##           Mean Median
+## Daily 10766.19  10765
 ```
 
 ## What is the average daily activity pattern?
@@ -98,7 +96,7 @@ g
 
 ![](PA1_template_files/figure-html/unnamed-chunk-7-1.png) 
 
-## Imputing missing values
+## Impute missing values
 
 Create a new dataset of raw steps but replace any NA values for steps with the mean for that interval.
 

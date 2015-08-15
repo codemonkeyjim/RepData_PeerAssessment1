@@ -56,8 +56,12 @@ g
 ### Summary statistics for daily steps
 
 ```{r}
-mean(steps.daily$steps, na.rm = TRUE)
-median(steps.daily$steps, na.rm = TRUE)
+daily.mean <- mean(steps.daily$steps, na.rm = TRUE)
+daily.median <- median(steps.daily$steps, na.rm = TRUE)
+summary <- rbind(c(daily.mean, daily.median))
+rownames(summary) <- c('Daily')
+colnames(summary) <- c('Mean', 'Median')
+summary
 ```
 
 ## What is the average daily activity pattern?
@@ -81,7 +85,7 @@ g <- g + labs(title = 'Average Steps by Interval',
 g
 ```
 
-## Imputing missing values
+## Impute missing values
 
 Create a new dataset of raw steps but replace any NA values for steps with the mean for that interval.
 
