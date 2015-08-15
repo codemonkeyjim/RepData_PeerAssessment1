@@ -140,3 +140,22 @@ steps.imputed$daytype <- (wday(steps.imputed$date) - 1) %% 6 == 0
 steps.imputed$daytype <- factor(steps.imputed$daytype, labels = c('weekday', 'weekend'))
 ```
 
+### Summarize by interval per daytype (including imputed)
+
+```{r}
+library(dplyr, quietly = TRUE, warn.conflicts = FALSE)
+steps.daytype.imputed <- steps.imputed %>% group_by(daytype, interval) %>% summarize(steps = mean(steps))
+```
+
+### Line chart of steps per interval by daytype (including imputed)
+
+```{r fig.height=7,fig.width=14}
+library(ggplot2)
+g <- ggplot(steps.daytype.imputed, aes(x = interval, y = steps, group = NA))
+g <- g + facet_grid(daytype ~ .)
+g <- g + geom_line()
+g <- g + labs(title = 'Average Steps per Interval',
+              x = 'Interval',
+              y = 'Average Steps')
+g
+```

@@ -159,7 +159,31 @@ The daily mean is unchanged because the NAs were replaced with the interval mean
 ```r
 library(lubridate)
 # Is weekend?
+# wday() returns 1 for Sunday and 7 for Saturday. Change to 0 and 6 and modulo by 6.
 steps.imputed$daytype <- (wday(steps.imputed$date) - 1) %% 6 == 0 
 steps.imputed$daytype <- factor(steps.imputed$daytype, labels = c('weekday', 'weekend'))
 ```
 
+### Summarize by interval per daytype (including imputed)
+
+
+```r
+library(dplyr, quietly = TRUE, warn.conflicts = FALSE)
+steps.daytype.imputed <- steps.imputed %>% group_by(daytype, interval) %>% summarize(steps = mean(steps))
+```
+
+### Line chart of steps per interval by daytype (including imputed)
+
+
+```r
+library(ggplot2)
+g <- ggplot(steps.daytype.imputed, aes(x = interval, y = steps, group = NA))
+g <- g + facet_grid(daytype ~ .)
+g <- g + geom_line()
+g <- g + labs(title = 'Average Steps per Interval',
+              x = 'Interval',
+              y = 'Average Steps')
+g
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-14-1.png) 
