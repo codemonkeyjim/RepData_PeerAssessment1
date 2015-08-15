@@ -47,7 +47,7 @@ library(ggplot2)
 g <- ggplot(steps.daily, aes(x = steps))
 g <- g + geom_histogram(binwidth=500, color = 'black', fill = 'gray')
 g <- g + labs(title = 'Count of Daily Steps Totals',
-              x = 'Total Daily Steps',
+              x = 'Total Daily Steps (ignore NAs)',
               y = '')
 g
 ```
@@ -124,7 +124,7 @@ library(ggplot2)
 g <- ggplot(steps.daily.imputed, aes(x = steps))
 g <- g + geom_histogram(binwidth=500, color = 'black', fill = 'gray')
 g <- g + labs(title = 'Count of Daily Steps Totals',
-              x = 'Total Daily Steps',
+              x = 'Total Daily Steps (incl imputed)',
               y = '')
 g
 ```
